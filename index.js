@@ -1,3 +1,4 @@
+// binary semaphore
 class Semaphore {
     constructor() {
         this.value = 0;
@@ -31,3 +32,32 @@ class Semaphore {
         }
     }
 }
+
+// counting semaphore
+// counting semaphore object definition
+function Semaphore() {
+    this.value = 0;
+
+    // initialize an array to act as a queue
+    this.queue = [];
+}
+
+// implement the P operation
+Semaphore.prototype.P = function (p) {
+    this.value = this.value - 1;
+    if (this.value < 0) {
+        // add process to queue
+        this.queue.push(p);
+        block();
+    }
+};
+
+// implement the V operation
+Semaphore.prototype.V = function () {
+    this.value = this.value + 1;
+    if (this.value <= 0) {
+        // remove process from queue
+        const p = this.queue.shift();
+        wakeup(p);
+    }
+};
