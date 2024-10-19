@@ -61,3 +61,4 @@ Semaphore.prototype.V = function () {
         wakeup(p);
     }
 };
+
